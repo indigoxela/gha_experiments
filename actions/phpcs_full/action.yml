@@ -25,7 +25,7 @@ runs:
     # The checkout action refuses to put it outside, so we have to do it in
     # two steps.
     - name: Checkout coding standard
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         repository: backdrop-ops/phpcs
         ref: 1.2.0
@@ -36,7 +36,7 @@ runs:
       run: mv phpcs ..
 
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Run phpcs
       shell: bash
