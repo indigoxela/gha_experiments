@@ -74,7 +74,7 @@ runs:
         cd modules/${{ env.REPO_NAME }}
         PARAMS='--error-format=github --no-progress'
         INPUT=${{ inputs.config_path }}
-        // Sanitize a bit.
+        # Sanitize a bit.
         CONF=${INPUT%% *}
         if [[ $CONF != '' ]]
         then
