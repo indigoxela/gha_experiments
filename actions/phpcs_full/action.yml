@@ -44,7 +44,3 @@ runs:
         PARAM='-n'
         if [[ ${{ inputs.fail_on_warnings }} == "true" ]]; then PARAM=''; fi
         phpcs --standard=../phpcs/Backdrop --report=../phpcs/Backdrop/Reports/Github.php --basepath=. $PARAM *
-
-branding:
-  icon: 'grid'
-  color: 'black'
