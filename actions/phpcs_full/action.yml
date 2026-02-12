@@ -20,6 +20,7 @@ runs:
       with:
         php-version: ${{ inputs.php_version }}
         tools: phpcs
+        coverage: none
 
     # The checkout action refuses to put it outside, so we have to do it in
     # two steps.
