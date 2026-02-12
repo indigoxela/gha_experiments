@@ -62,7 +62,7 @@ runs:
             echo "Cloning $BASE/$PROJECT.git"
             git clone -q --depth 1 "$BASE/$PROJECT.git"
           else
-            echo "Project $PROJECT not found"
+            echo "::error::Dependency $PROJECT not found."
             exit 1
           fi
         done
