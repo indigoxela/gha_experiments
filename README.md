@@ -2,7 +2,7 @@
 
 Experiments re GitHub actions
 
-Using "phpcs_full":
+## Using "phpcs_full":
 
 ```yml
 name: Coding standards
@@ -20,3 +20,27 @@ Available (optional) parameters:
 
 - php_version: defaults to 8.3
 - fail_on_warnings: defaults to true
+
+## Using "phpstan":
+
+```yml
+name: PHPStan
+on: [pull_request]
+jobs:
+  code_analysis:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run PHPStan
+        uses: indigoxela/gha_experiments/actions/phpstan@main
+```
+
+Available (optional) parameters:
+
+- php_version: defaults to 8.3
+- config_path: by default `phpstan` expects a phpstan.neon file in your repo's
+  base directory
+- module_dependencies: default empty
+
+You *will* need a phpstan.neon file to make use of this action, its path is
+configurable.
