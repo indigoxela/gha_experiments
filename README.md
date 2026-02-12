@@ -2,22 +2,21 @@
 
 Experiments re GitHub actions
 
-Using it:
+Using "phpcs_full":
 
-```
+```yml
 name: Coding standards
 on: [pull_request]
 jobs:
   coding_standards:
-    name: "phpcs remote action"
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
-      - uses: indigoxela/gha_experiments/actions/phpcs_full@main
-        with:
-          php_version: "8.5"
-          fail_on_warnings: false
+      - name: Run PHP_CodeSniffer
+        uses: indigoxela/gha_experiments/actions/phpcs_full@main
 ```
 
-Default php version: 8.3
-Defaults to fail on warnings
+Available (optional) parameters:
+
+- php_version: defaults to 8.3
+- fail_on_warnings: defaults to true
