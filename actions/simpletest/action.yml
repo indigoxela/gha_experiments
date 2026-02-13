@@ -109,7 +109,7 @@ runs:
       shell: bash
       run: |
         : Install Backdrop
-        echo -e "<?php\n$settings['telemetry_enabled'] = FALSE;\n" > settings.local.php
+        echo -e "<?php\n\$settings['telemetry_enabled'] = FALSE;\n" > settings.local.php
         core/scripts/install.sh --db-url=mysql://root:root@127.0.0.1/backdrop
 
     - name: Run functional tests
