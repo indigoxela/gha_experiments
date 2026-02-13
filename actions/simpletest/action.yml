@@ -86,7 +86,7 @@ runs:
       run: |
         : Fetch dependencies if any
         cd ./modules
-        DEPS=${{ inputs.module_dependencies }}
+        DEPS="${{ inputs.module_dependencies }}"
         BASE='https://github.com/backdrop-contrib'
         IFS=',' read -r -a PROJECTS <<< "$DEPS"
         for PROJECT in "${PROJECTS[@]}"
