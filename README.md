@@ -8,9 +8,10 @@ name is).
 
 Example: `.github/workflows/code-checks.yml`
 
-All below examples are the minimal setup (without params) and all run on
-pull requests only.
-
+All below copy-paste examples are the minimal setup (without params) and all run
+on pull requests only.
+You can use all of them in the same repo, but need a workflow file for each of
+them.
 
 ## Using "phpcs_full":
 
