@@ -1,5 +1,5 @@
 name: "Simpletest"
-description: "Runs Backdrop CMS functional tests provided by your module."
+description: "Runs Backdrop CMS functional tests that ship with your module."
 inputs:
   php_version:
     description: "PHP version to run on"

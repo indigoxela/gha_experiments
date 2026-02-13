@@ -1,5 +1,5 @@
-name: "BackdropCMS coding standards"
-description: "Runs PHP_CodeSniffer on all files using the BackdropCMS ruleset."
+name: "Backdrop CMS coding standards"
+description: "Runs PHP_CodeSniffer on all files using the Backdrop ruleset."
 inputs:
   php_version:
     description: "PHP version to run on"
