@@ -1,0 +1,36 @@
+name: "JSHint"
+description: "Runs the JSHint JavaScript linting tool on configurable paths."
+inputs:
+  paths_to_check:
+    description: "Directories or individual files, separated by space."
+    required: false
+    type: string
+    default: "."
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup env
+      shell: bash
+      env:
+        ACTION_PATH: ${{ github.action_path }}
+      run: |
+        : Setup env
+        echo "REPO_NAME=${PWD##*/}" >> $GITHUB_ENV
+        # Export value obtained from actual workflow for later use.
+        echo 'ACTION_PATH=${{ env.ACTION_PATH }}' >> $GITHUB_ENV
+
+    - name: Checkout code
+      uses: actions/checkout@v6
+
+    - name: Install and run jshint
+      shell: bash
+      run: |
+        : Install and run jshint
+        sudo npm install --quiet -g jshint
+        # Fallback config.
+        if [ -n '.jshintrc']
+        then
+          cp ${{ env.ACTION_PATH }}/.jshintrc .
+        fi
+        jshint --reporter=${{ env.ACTION_PATH }}/reporter.js ${{ inputs.paths_to_check }}
