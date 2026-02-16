@@ -29,7 +29,7 @@ runs:
         : Install and run jshint
         sudo npm install --quiet -g jshint
         # Fallback config.
-        if [ -n '.jshintrc']
+        if [ -n '.jshintrc' ]
         then
           cp ${{ env.ACTION_PATH }}/.jshintrc .
         fi
