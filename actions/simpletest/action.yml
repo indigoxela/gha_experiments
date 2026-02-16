@@ -22,9 +22,13 @@ runs:
   steps:
     - name: Setup env
       shell: bash
+      env:
+        ACTION_PATH: ${{ github.action_path }}
       run: |
         : Setup env
         echo "REPO_NAME=${PWD##*/}" >> $GITHUB_ENV
+        # Export value obtained from actual workflow for later use.
+        echo 'ACTION_PATH=${{ env.ACTION_PATH }}' >> $GITHUB_ENV
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -44,7 +48,7 @@ runs:
       shell: bash
       run: |
         : Verify setup and create database
-        echo -e '[client]\nuser = root\npassword = root\nhost = 127.0.0.1' > ~/.my.cnf
+        cp ${{ env.ACTION_PATH }}/.my.cnf ~/.my.cnf
         mysql -e 'SELECT version()\G'
         mysql -e 'CREATE DATABASE backdrop;'
 
@@ -54,13 +58,8 @@ runs:
         : Setup Apache
         # Setup VirtualHost
         PHP_VERSION=$(echo -n ${{ inputs.php_version }})
-        echo -e "<VirtualHost *:80>\nDocumentRoot $PWD" > default.conf
-        echo -e "<Directory $PWD>\n  AllowOverride All\n  Require all granted\n</Directory>" >> default.conf
-        echo '<FilesMatch ".+\.php$">' >> default.conf
-        echo "  SetHandler \"proxy:unix:/run/php/php$PHP_VERSION-fpm.sock|fcgi://localhost\"" >> default.conf
-        echo "</FilesMatch>" >> default.conf
-        echo "</VirtualHost>" >> default.conf
-        sudo mv default.conf /etc/apache2/sites-available/000-default.conf
+        sudo cp -f ${{ env.ACTION_PATH }}/default.conf /etc/apache2/sites-available/000-default.conf
+        sudo sed -i -e "s?_PWD?$PWD?g" -e "s/_PHP_V/$PHP_VERSION/g" /etc/apache2/sites-available/000-default.conf
         # Install and enable Apache modules
         sudo apt-get -q update > /dev/null
         sudo apt-get -q install libapache2-mod-fcgid > /dev/null
@@ -110,7 +109,7 @@ runs:
       shell: bash
       run: |
         : Install Backdrop
-        echo -e "<?php\n\$settings['telemetry_enabled'] = FALSE;\n" > settings.local.php
+        cp ${{ env.ACTION_PATH }}/settings.local.php .
         core/scripts/install.sh --db-url=mysql://root:root@127.0.0.1/backdrop
 
     - name: Run functional tests
