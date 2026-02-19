@@ -1,6 +1,4 @@
-# gha_experiments
-
-Experiments re GitHub actions
+# Experiments with GitHub Actions
 
 To use such a predefined action you'd create a directory
 `.github/workflows/` in your repository and add a yml file (whatever the
@@ -72,10 +70,9 @@ jobs:
 
 ### Run Simpletest on multiple PHP versions:
 
-Every PHP version check uses its own workflow runner, they start in
-parallel.
+Every PHP version uses its own workflow runner, they start in parallel.
 
-```
+```yml
 name: Simpletest
 on: [pull_request]
 jobs:
